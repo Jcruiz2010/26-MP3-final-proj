@@ -29,7 +29,21 @@ def search_country():
         print("Country not found")
    
 def add_country():
-    pass
+    country = input("Country: ")
+    days = int(input("Days of stay: "))
+    start_dia = input("Start date: ")
+    notes = input("Notes: ")
+ 
+    trip_thingsidk = {
+        "country": country,
+        "days": days,
+        "start_dia": start_dia,
+        "notes": notes
+    }
+    plan.append(trip_thingsidk)
+ 
+    print("\nTrip added!")
+    print(f"{country} - {days} days - Start: {start_dia} - Notes: {notes}\n")
  
  
 def show_trips():
