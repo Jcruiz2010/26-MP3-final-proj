@@ -79,11 +79,11 @@ def save_trip():
         file.write("Client: " + client + "\n")
         file.write("Trips:\n")
  
-        for time in plan:
-            country = time["country"]
-            days = time["days"]
-            start = time["start_dia"]
-            notes = time["notes"]
+        for tripstuff in plan:
+            country = tripstuff["country"]
+            days = tripstuff["days"]
+            start = tripstuff["start_dia"]
+            notes = tripstuff["notes"]
  
             line = country + f" -  + {str(days)} +  days - Start:  + {start} +  - Notes:  + {notes} + \n"
             file.write(line)
@@ -93,7 +93,7 @@ def save_trip():
 
 def ui():
     while True:
-        print("1. Search Country")
+        print("\n1. Search Country")
         print("2. Add Country to Trip")
         print("3. Show Trips")
         print("4. Calculate Cost")
