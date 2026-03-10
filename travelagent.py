@@ -62,7 +62,14 @@ def show_trips():
  
  
 def calculate_cost():
-    pass
+    total_dias = 0
+ 
+    for guacamole in plan:
+        total_dias = total_dias + guacamole["days"]
+ 
+    total = (total_dias * 165) + (len(plan) * 75) + 30
+ 
+    print("\nTotal Cost: $" + str(total) + "\n")
  
  
 def save_trip():
