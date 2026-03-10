@@ -1,18 +1,24 @@
 import requests
- 
+
 plan = []
  
 def search_country():
     country = input("Enter the name of the country: ")
     url = f"https://restcountries.com/v3.1/name/{country}"
     request1 = requests.get(url)
- 
+    data = request1.json()[0]
+    url2=f"https://api.open-meteo.com/v1/forecast?latitude={data["latlng"][0]}&longitude={data["latlng"][1]}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
+    request2= requests.get(url2)
+    data2= request2.json()
+   
+  
     if request1.status_code == 200:
-        data = request1.json()[0]
+        
+        
         currencies = ", ".join(data["currencies"].keys())
         languages = ", ".join(data["languages"].values())
         timezones = ", ".join(data["timezones"])
- 
+        
         print("\nInformation about contries")
         print("Official Name:", data["name"]["official"])
         print("Capital:", data["capital"][0])
@@ -24,27 +30,40 @@ def search_country():
         print("Timezones:", timezones)
         print("Country Code:", data["cca2"])
         print("Location:", data["latlng"])
+        print("Weather:",data2["current"]["temperature_2m"])
+        
  
     else:
         print("Country not found")
    
 def add_country():
-    country = input("Country: ")
-    days = int(input("Days of stay: "))
-    start_dia = input("Start date: ")
-    notes = input("Notes: ")
- 
-    trip_thingsidk = {
-        "country": country,
-        "days": days,
-        "start_dia": start_dia,
-        "notes": notes
-    }
-    plan.append(trip_thingsidk)
- 
-    print("\nTrip added!")
-    print(f"{country} - {days} days - Start: {start_dia} - Notes: {notes}\n")
- 
+    try:
+        country = input("Country: ")
+        days = int(input("Days of stay: "))
+        start_dia = int(input("Start day: "))
+        if 1<= start_dia <=31:
+            start_mes= int(input("Start month"))
+            if  1<= start_mes <=12:
+                
+                start_year= int(input("Start year"))
+                notes = input("Notes: ")
+                start_date= f"{start_dia}/{start_mes}/{start_year}"
+                trip_thingsidk = {
+                    "country": country,
+                    "days": days,
+                    "start_date": start_date,
+                    "notes": notes
+                }
+                plan.append(trip_thingsidk)
+            
+                print("\nTrip added!")
+                print(f"{country} - {days} days - Start: {start_date} - Notes: {notes}\n")
+            else:
+                print("thats not a valid month")
+        else:
+            print("Thats not a valid day")
+    except:
+        print("An error has ocurred")
  
 def show_trips():
     if not plan:
@@ -75,9 +94,9 @@ def calculate_cost():
 def save_trip():
     client = input("Client name: ")
  
-    with open("trip.txt", "w") as file:
-        file.write("Client: " + client + "\n")
-        file.write("Trips:\n")
+    with open("trip.txt", "a") as file:
+        file.append("Client: " + client + "\n")
+        file.append("Trips:\n")
  
         for tripstuff in plan:
             country = tripstuff["country"]
@@ -85,8 +104,8 @@ def save_trip():
             start = tripstuff["start_dia"]
             notes = tripstuff["notes"]
  
-            line = country + f" -  + {str(days)} +  days - Start:  + {start} +  - Notes:  + {notes} + \n"
-            file.write(line)
+            line = country + f" -  {str(days)}  days - Start:  {start}  - Notes:  {notes} \n"
+            file.append(line)
  
     print("Trip saved\n")
  
