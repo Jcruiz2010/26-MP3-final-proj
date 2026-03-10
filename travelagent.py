@@ -73,7 +73,22 @@ def calculate_cost():
  
  
 def save_trip():
-    pass
+    client = input("Client name: ")
+ 
+    with open("trip.txt", "w") as file:
+        file.write("Client: " + client + "\n")
+        file.write("Trips:\n")
+ 
+        for time in plan:
+            country = time["country"]
+            days = time["days"]
+            start = time["start_dia"]
+            notes = time["notes"]
+ 
+            line = country + f" -  + {str(days)} +  days - Start:  + {start} +  - Notes:  + {notes} + \n"
+            file.write(line)
+ 
+    print("Trip saved\n")
  
 
 def ui():
