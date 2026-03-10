@@ -105,7 +105,7 @@ def save_trip():
             notes = tripstuff["notes"]
  
             line = country + f" -  {str(days)}  days - Start:  {start}  - Notes:  {notes} \n"
-            file.append(line)
+            file.write(line)
  
     print("Trip saved\n")
  
