@@ -47,7 +47,18 @@ def add_country():
  
  
 def show_trips():
-    pass
+    if not plan:
+        print("No trips added yet.\n")
+        return
+ 
+    print("\nCurrent Trips")
+    for p in plan:
+        country = p["country"]
+        days = p["days"]
+        start = p["start_dia"]
+        notes = p["notes"]
+ 
+        print(country + " - " + str(days) + " days - Start: " + start + " : Notes: " + notes)
  
  
 def calculate_cost():
