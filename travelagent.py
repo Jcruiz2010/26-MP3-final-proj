@@ -8,10 +8,25 @@ def search_country():
     request1 = requests.get(url)
  
     if request1.status_code == 200:
-        pass
-
+        data = request1.json()[0]
+        currencies = ", ".join(data["currencies"].keys())
+        languages = ", ".join(data["languages"].values())
+        timezones = ", ".join(data["timezones"])
+ 
+        print("\nInformation about contries")
+        print("Official Name:", data["name"]["official"])
+        print("Capital:", data["capital"][0])
+        print("Region:", data["region"])
+        print("Subregion:", data["subregion"])
+        print("Population:", data["population"])
+        print("Currency:", currencies)
+        print("Languages:", languages)
+        print("Timezones:", timezones)
+        print("Country Code:", data["cca2"])
+        print("Location:", data["latlng"])
+ 
     else:
-        pass
+        print("Country not found")
    
 def add_country():
     pass
