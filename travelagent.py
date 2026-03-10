@@ -74,7 +74,7 @@ def show_trips():
     for p in plan:
         country = p["country"]
         days = p["days"]
-        start = p["start_dia"]
+        start = p["start_date"]
         notes = p["notes"]
  
         print(country + " - " + str(days) + " days - Start: " + start + " : Notes: " + notes)
