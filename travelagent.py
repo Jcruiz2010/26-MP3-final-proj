@@ -95,8 +95,8 @@ def save_trip():
     client = input("Client name: ")
  
     with open("trip.txt", "a") as file:
-        file.append("Client: " + client + "\n")
-        file.append("Trips:\n")
+        file.write("Client: " + client + "\n")
+        file.write("Trips:\n")
  
         for tripstuff in plan:
             country = tripstuff["country"]
