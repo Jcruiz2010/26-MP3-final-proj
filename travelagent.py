@@ -66,19 +66,16 @@ def add_country():
         print("An error has ocurred")
  
 def show_trips():
-    if not plan:
-        print("No trips added yet.\n")
-        return
- 
-    print("\nCurrent Trips")
-    for p in plan:
-        country = p["country"]
-        days = p["days"]
-        start = p["start_date"]
-        notes = p["notes"]
- 
-        print(country + " - " + str(days) + " days - Start: " + start + " : Notes: " + notes)
- 
+    try:
+        with open ("trip.txt", "r") as file:
+            
+         print(file.read())
+    except FileNotFoundError:
+            print("No saved trips added yet.\n")
+            return
+    
+        
+    
  
 def calculate_cost():
     total_dias = 0
@@ -93,7 +90,7 @@ def calculate_cost():
  
 def save_trip():
     client = input("Client name: ")
- 
+    
     with open("trip.txt", "a") as file:
         file.write("Client: " + client + "\n")
         file.write("Trips:\n")
@@ -101,13 +98,16 @@ def save_trip():
         for tripstuff in plan:
             country = tripstuff["country"]
             days = tripstuff["days"]
-            start = tripstuff["start_dia"]
+            start = tripstuff["start_date"]
             notes = tripstuff["notes"]
  
             line = country + f" -  {str(days)}  days - Start:  {start}  - Notes:  {notes} \n"
             file.write(line)
- 
+            
+    
     print("Trip saved\n")
+    plan.clear()
+    
  
 
 def ui():
@@ -132,7 +132,7 @@ def ui():
         elif decision == "5":
             save_trip()
         elif decision == "6":
-            print ("ya done ok? im sorry")
+            print ("done")
             break
         else:
             print("U can't do that yo\n")
