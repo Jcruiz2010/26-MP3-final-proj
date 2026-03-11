@@ -56,18 +56,21 @@ def add_country():
             if  1<= start_mes <=12:
                 
                 start_year= int(input("Start year"))
-                notes = input("Notes: ")
-                start_date= f"{start_dia}/{start_mes}/{start_year}"
-                trip_thingsidk = {
-                    "country": country,
-                    "days": days,
-                    "start_date": start_date,
-                    "notes": notes
-                }
-                plan.append(trip_thingsidk)
-            
-                print("\nTrip added!")
-                print(f"{country} - {days} days - Start: {start_date} - Notes: {notes}\n")
+                if start_year>=2026:
+                    notes = input("Notes: ")
+                    start_date= f"{start_dia}/{start_mes}/{start_year}"
+                    trip_thingsidk = {
+                        "country": country,
+                        "days": days,
+                        "start_date": start_date,
+                        "notes": notes
+                    }
+                    plan.append(trip_thingsidk)
+                
+                    print("\nTrip added!")
+                    print(f"{country} - {days} days - Start: {start_date} - Notes: {notes}\n")
+                else:
+                    print("thats not a valid year")
             else:
                 print("thats not a valid month")
         else:
