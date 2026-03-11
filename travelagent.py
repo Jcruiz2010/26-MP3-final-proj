@@ -10,6 +10,15 @@ def search_country():
     url2=f"https://api.open-meteo.com/v1/forecast?latitude={data["latlng"][0]}&longitude={data["latlng"][1]}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
     request2= requests.get(url2)
     data2= request2.json()
+    url3=f"http://api.timezonedb.com/v2.1/get-time-zone?key=XVU1UGW1AP34&format=json&by=position&lat={data["latlng"][0]}&lng={data["latlng"][1]}"
+    request3= requests.get(url3)
+    data3= request3.json()
+    timezone= data3["zoneName"].split("/")
+    url4=f"https://timeapi.io/api/v1/time/current/zone?timezone={timezone[0]}%2F{timezone[1]}"
+    request4= requests.get(url4)
+    data4= request4.json()
+    
+    
    
   
     if request1.status_code == 200:
@@ -31,7 +40,8 @@ def search_country():
         print("Country Code:", data["cca2"])
         print("Location:", data["latlng"])
         print("Weather:",data2["current"]["temperature_2m"])
-        
+        print("Current time:",data4["time"])
+
  
     else:
         print("Country not found")
